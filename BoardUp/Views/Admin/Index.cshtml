@@ -1,0 +1,19 @@
+﻿@model BoardUp.Models.AdminViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<script src="~/Scripts/adminControl.js" type="text/javascript"></script>
+
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        <li><a href="" id="addboard">Board</a></li>
+        <li><a href="" id="addfriend">Friend</a></li>
+        <li><a href="" id="addpermission">Permission</a></li>
+    </ul>
+</div>
+
+<div id="obsah">@ViewBag.Status</div>
+

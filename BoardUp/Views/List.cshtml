@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Board_Up.Models.GraphicObject>
+
+@{
+}
+
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BoardId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.x)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.y)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.width)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.height)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fill)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.stroke)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.stroke_width)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BoardId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.x)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.y)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.width)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.height)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fill)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stroke)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stroke_width)
+            </td>
+        </tr>
+    }
+    
+    </table>

@@ -1,0 +1,67 @@
+﻿@model IEnumerable<BoardUp.Models.Friendship>
+
+@{
+    ViewBag.Title = "ListFriends";
+}
+
+<script src="~/Scripts/adminControl.js" type="text/javascript"></script>
+<h2>Friend List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Index")
+</p>
+
+<p id="debug"></p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FriendshipId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FriendId)
+        </th>
+        <th>
+            Status
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FriendshipId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FriendId)
+        </td>
+        @{
+          if (item.Accepted) { 
+            <td>
+                Friend
+            </td>
+          }
+          else
+          {
+              if (item.UserId == ViewBag.User)
+              {
+                <td>
+                    Pending
+                </td>
+              }
+              else { 
+                <td>
+                    @Html.ActionLink("Accept", "AcceptFriend", "Admin", new { id = item.FriendshipId }, null) | @Html.ActionLink("Decline", "DeclineFriend", "Admin", new { id = item.FriendshipId }, null)
+                </td>
+              }
+          }
+        }
+        
+    </tr>
+}
+
+</table>

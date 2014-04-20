@@ -1,0 +1,54 @@
+﻿@model IEnumerable<BoardUp.Models.Permission>
+
+@{
+    ViewBag.Title = "ListPermissions";
+}
+
+<h2>ListPermissions</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Index")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BoardId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddObject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeleteObject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EditObject)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BoardId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddObject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeleteObject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EditObject)
+        </td>
+        <td>
+        </td>
+    </tr>
+}
+
+</table>

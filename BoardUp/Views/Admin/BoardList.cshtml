@@ -1,0 +1,43 @@
+﻿@model IEnumerable<BoardUp.Models.BoardList>
+
+@{
+    ViewBag.Title = "ListBoards";
+}
+
+<h2>ListBoards</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Index")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BoardId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Owner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BoardId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Owner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Show Board " + item.BoardId, "Index", "Board", new { id = item.BoardId }, null)
+        </td>
+    </tr>
+}
+
+</table>
