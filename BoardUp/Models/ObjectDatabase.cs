@@ -17,5 +17,6 @@ namespace BoardUp.Models
         public DbSet<Friendship> Friendships { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<Board> Boards { get; set; }
+        public DbSet<ChatObject> ChatLog { get; set; }
     }
 }

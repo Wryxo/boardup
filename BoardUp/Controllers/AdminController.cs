@@ -40,7 +40,7 @@ namespace BoardUp.Controllers
                 db.SaveChanges();
             }
             ViewBag.Status = "success";
-            return View("Index");
+            return RedirectToAction("BoardList");
         }
 
         [HttpPost]
@@ -53,20 +53,20 @@ namespace BoardUp.Controllers
                 db.SaveChanges();
             }
             ViewBag.Status = "success";
-            return View("Index");
+            return RedirectToAction("FriendList");
         }
 
         [HttpPost]
         public ActionResult _PermissionPartial(Permission a)
         {
-            a.UserId = User.Identity.GetUserId();
+            //a.UserId = User.Identity.GetUserId();
             using (var db = new ObjectDatabase())
             {
                 db.Permissions.Add(a);
                 db.SaveChanges();
             }
             ViewBag.Status = "success";
-            return View("Index");
+            return RedirectToAction("PermissionList");
         }
 
         [HttpGet]
@@ -90,7 +90,6 @@ namespace BoardUp.Controllers
             {
                 objs.AddRange(db.Permissions.ToArray());
             }
-
             return View(objs);
         }
 

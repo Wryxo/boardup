@@ -7,15 +7,16 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Threading;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Web.Script.Serialization;
 
 namespace BoardUp.Controllers
 {
     [Authorize]
     public class BoardController : Controller
     {
-        //
-        // GET: /Ajax/
-
         [HttpGet]
         public ActionResult Index(int? id)
         {
@@ -24,13 +25,15 @@ namespace BoardUp.Controllers
             {
                 using (var db = new ObjectDatabase()) {
                     var x = db.Permissions.SingleOrDefault(m => (m.BoardId == id && m.UserId == uid));
-                    if (x != null)
+                    if (x != null) {
                         return View();
+                    }
                 }
             }
             return new HttpNotFoundResult();
         }
 
+        // Pridanie objektu do tabule
         [HttpPost]
         public JsonResult Index(GraphicObject aaa)
         {
@@ -66,6 +69,7 @@ namespace BoardUp.Controllers
             return new HttpNotFoundResult();
         }*/
 
+        // Request na obnovenie objektov na tabuli
         [HttpPost]
         public JsonResult Refresh(GraphicObject aaa)
         {
@@ -78,6 +82,7 @@ namespace BoardUp.Controllers
             return Json(objs);
         }
 
+        // Zmen objekt v databaze
         [HttpPost]
         public JsonResult Update(GraphicObject aaa)
         {
@@ -107,6 +112,7 @@ namespace BoardUp.Controllers
             return Json(objs);
         }
 
+        // Zmaz objekt z databazy
         [HttpPost]
         public JsonResult Delete(GraphicObject aaa)
         {
@@ -118,13 +124,68 @@ namespace BoardUp.Controllers
                 if (z != null)
                 {
                     var obj = db.GraphicObjects.SingleOrDefault(m => m.GraphicObjectId == aaa.GraphicObjectId);
-                    db.GraphicObjects.Remove(obj);
-                    db.SaveChanges();
+                    if (obj != null)
+                    {
+                        db.GraphicObjects.Remove(obj);
+                        db.SaveChanges();
+                    }
                 }
                 var x = db.GraphicObjects.Where(m => m.BoardId == aaa.BoardId);
                 objs.AddRange(x.ToArray());
             }
             return Json(objs);
         }
+
+        // Request na pridanie spravy do chatu
+        [HttpPost]
+        public JsonResult ChatAdd(ChatObject aaa)
+        {
+            var objs = new List<ChatObject>();
+            aaa.Timestamp = DateTime.Now;
+            using (var db = new ObjectDatabase())
+            {
+                db.ChatLog.Add(aaa);
+                db.SaveChanges();
+                var x = db.ChatLog.Where(m => m.BoardId == aaa.BoardId);
+                objs.AddRange(x.ToArray());
+            }
+            return Json(objs);
+        }
+
+        // Request na obnovenie chatu
+        [HttpPost]
+        public JsonResult ChatRefresh(ChatObject aaa)
+        {
+            var my_lock = new object();
+            var objs = new List<ChatObject>();
+            using (var db = new ObjectDatabase())
+            {
+                var x = db.ChatLog.Where(m => m.BoardId == aaa.BoardId);
+                objs.AddRange(x.ToArray());
+            }
+            return Json(objs);
+        }
+
+        /*public ActionResult ChatMessage()
+        {
+            var result = string.Empty;
+            var sb = new StringBuilder();
+            JavaScriptSerializer ser = new JavaScriptSerializer();
+            var serializedObject = ser.Serialize(new { message = "chat" });
+            sb.AppendFormat("data: {0}\n\n", serializedObject);
+            System.Diagnostics.Debug.WriteLine("in chat");
+            return Content(sb.ToString(), "text/event-stream");
+        }
+
+        public ActionResult BoardMessage()
+        {
+            var result = string.Empty;
+            var sb = new StringBuilder();
+            JavaScriptSerializer ser = new JavaScriptSerializer();
+            var serializedObject = ser.Serialize(new { message = "board" });
+            sb.AppendFormat("data: {0}\n\n", serializedObject);
+            System.Diagnostics.Debug.WriteLine("in board");
+            return Content(sb.ToString(), "text/event-stream");
+        }*/
     }
 }

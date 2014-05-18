@@ -126,6 +126,7 @@ namespace BoardUp.Controllers
                 : "";
             ViewBag.HasLocalPassword = HasPassword();
             ViewBag.ReturnUrl = Url.Action("Manage");
+            ViewBag.UserID = User.Identity.GetUserId();
             return View();
         }
 

@@ -1,9 +1,18 @@
 ﻿<script src="~/Scripts/raphael-min.js" type="text/javascript"></script>
 <script src="~/Scripts/svgBoard.js" type="text/javascript"></script>
 @ViewBag.Message
-<div id="canvas"></div>
+<div id="canvas"><form id="chat"><textarea id="chatbox" rows="22" cols="35" readonly></textarea>
+    <input id="chatmessage" type="text" size="25" /><input id="sendchat" class="btn btn-info" type="button" value="Send" /></form></div>
 <div>
-    <input type="button" id="rect" value="Rectangle" />
-    <input type="button" id="elli" value="Ellipse" />
+    <input type="button" id="rect" class="btn btn-info" value="Rectangle" />
+    <input type="button" id="elli" class="btn btn-info" value="Ellipse" />
+    <input type="button" id="line" class="btn btn-info" value="Line" />
+    <input type="button" id="text" class="btn btn-info" value="Text" />
+</div>
+Fill Color
+<div class="bfh-colorpicker" id="colorpicker1" data-name="colorpicker1">
+</div>
+Stroke Color
+<div class="bfh-colorpicker" id="colorpicker2" data-name="colorpicker2">
 </div>
 
